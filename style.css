@@ -1,3 +1,4 @@
+/* Global reset */
 * { box-sizing: border-box; }
 
 body {
@@ -6,10 +7,11 @@ body {
   align-items: center;
   min-height: 100vh;
   margin: 0;
-  background: linear-gradient(to right, #6a11cb, #2575fc);
+  background: linear-gradient(135deg, #c7a4ff, #a77bff); /* light purple gradient */
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
 }
 
+/* Stopwatch container */
 .container {
   background: #fff;
   width: min(92vw, 420px);
@@ -84,4 +86,44 @@ h1 {
 #laps li .lap-time {
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   color: #555;
+}
+
+/* Sticky footer with social links */
+.social-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 0;
+  backdrop-filter: blur(6px);
+  border-top: 1px solid rgba(255,255,255,0.15);
+}
+
+.social-btn {
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: all 0.2s ease-in-out;
+}
+
+.github-btn {
+  background-color: #8a2be2; /* purple theme */
+  color: white;
+}
+
+.linkedin-btn {
+  background-color: transparent;
+  color: white;
+}
+
+.social-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
 }
