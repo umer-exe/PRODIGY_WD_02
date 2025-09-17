@@ -1,6 +1,7 @@
 let startTime = 0;
 let elapsedTime = 0;
-let timerInterval;
+let timerInterval = null;
+let lapCount = 0;
 
 const display = document.getElementById("display");
 const startStopBtn = document.getElementById("startStopBtn");
@@ -10,10 +11,15 @@ const laps = document.getElementById("laps");
 
 function formatTime(ms) {
   const totalSeconds = Math.floor(ms / 1000);
-  const minutes = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
-  const seconds = String(totalSeconds % 60).padStart(2, '0');
-  const milliseconds = String(Math.floor((ms % 1000) / 10)).padStart(2, '0');
-  return `${minutes}:${seconds}:${milliseconds}`;
+  const minutes = String(Math.floor(totalSeconds / 60)).padStart(2, "0");
+  const seconds = String(totalSeconds % 60).padStart(2, "0");
+  const centis  = String(Math.floor((ms % 1000) / 10)).padStart(2, "0");
+  return `${minutes}:${seconds}:${centis}`;
+}
+
+function tick() {
+  elapsedTime = Date.now() - startTime;
+  display.textContent = formatTime(elapsedTime);
 }
 
 function startStop() {
@@ -24,10 +30,7 @@ function startStop() {
     lapBtn.disabled = true;
   } else {
     startTime = Date.now() - elapsedTime;
-    timerInterval = setInterval(() => {
-      elapsedTime = Date.now() - startTime;
-      display.textContent = formatTime(elapsedTime);
-    }, 10);
+    timerInterval = setInterval(tick, 10);
     startStopBtn.textContent = "Pause";
     lapBtn.disabled = false;
     resetBtn.disabled = false;
@@ -37,7 +40,9 @@ function startStop() {
 function reset() {
   clearInterval(timerInterval);
   timerInterval = null;
+  startTime = 0;
   elapsedTime = 0;
+  lapCount = 0;
   display.textContent = "00:00:00";
   startStopBtn.textContent = "Start";
   lapBtn.disabled = true;
@@ -46,8 +51,22 @@ function reset() {
 }
 
 function recordLap() {
+  lapCount += 1;
+
   const li = document.createElement("li");
-  li.textContent = formatTime(elapsedTime);
+  const label = document.createElement("span");
+  const time = document.createElement("span");
+
+  label.className = "lap-label";
+  time.className = "lap-time";
+
+  label.textContent = `Lap ${lapCount}`;
+  time.textContent = formatTime(elapsedTime);
+
+  li.appendChild(label);
+  li.appendChild(time);
+
+  // Append to bottom so Lap 1 stays at top (chronological)
   laps.appendChild(li);
 }
 
