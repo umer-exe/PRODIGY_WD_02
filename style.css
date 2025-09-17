@@ -17,13 +17,18 @@ body {
   width: min(92vw, 420px);
   padding: 28px 24px;
   border-radius: 14px;
-  box-shadow: 0 16px 36px rgba(0,0,0,.18);
+  border: 1px solid #efe6ff; /* light purple border */
+  box-shadow:
+    0 18px 30px rgba(138, 43, 226, 0.20),
+    0 2px 8px rgba(0, 0, 0, 0.06);
   text-align: center;
 }
 
 h1 {
   margin: 0 0 8px;
   font-size: 28px;
+  color: #1f1140; /* deep ink color */
+  letter-spacing: .2px;
 }
 
 .display {
@@ -31,13 +36,16 @@ h1 {
   font-size: 44px;
   font-weight: 700;
   margin: 12px 0 20px;
+  color: #2f1f55; /* darker purple text */
+  text-shadow: 0 1px 0 #fff;
 }
 
 .buttons {
   display: flex;
   gap: 12px;
   justify-content: center;
-  margin-bottom: 14px;
+  margin-bottom: 24px;
+  position: relative;
 }
 
 .buttons button {
@@ -45,47 +53,59 @@ h1 {
   border: 0;
   border-radius: 10px;
   cursor: pointer;
-  background: #2575fc;
+  background: #8a2be2; /* purple theme buttons */
   color: #fff;
   font-weight: 600;
-  box-shadow: 0 2px 0 rgba(0,0,0,.25);
+  box-shadow: 0 2px 0 rgba(31,17,64,.25);
   transition: transform .02s ease-in, filter .15s;
 }
-.buttons button:hover { filter: brightness(1.05); }
+.buttons button:hover { background: #7a22d0; filter: none; }
 .buttons button:disabled {
   filter: grayscale(.4) opacity(.7);
   cursor: not-allowed;
 }
 .buttons button:active { transform: translateY(1px); }
 
+/* subtle divider below buttons */
+.buttons::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -10px;
+  height: 1px;
+  background: #eadcff;
+  opacity: .9;
+}
+
 /* Laps list */
 #laps {
   list-style: none;
   padding: 0;
-  margin: 8px 0 0;
+  margin: 20px 0 0;
   max-height: 220px;
   overflow-y: auto;
-  border-top: 1px solid #eee;
+  border-top: 1px solid #eadcff;
 }
 
 #laps li {
   display: flex;
-  justify-content: space-between;        /* Lap label left, time right */
+  justify-content: space-between;
   align-items: center;
   gap: 12px;
   padding: 10px 2px;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid #eadcff;
   font-size: 15px;
 }
 
 #laps li .lap-label {
   font-weight: 700;
-  color: #333;
+  color: #3a2a66;
 }
 
 #laps li .lap-time {
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  color: #555;
+  color: #4b3c7a;
 }
 
 /* Sticky footer with social links */
@@ -114,7 +134,7 @@ h1 {
 }
 
 .github-btn {
-  background-color: #8a2be2; /* purple theme */
+  background-color: #8a2be2;
   color: white;
 }
 
