@@ -67,6 +67,7 @@ body {
 }
 
 /* 4) Theme toggle (sun / moon) */
+/* === Theme Toggle Switch (Sun/Moon Visibility Fixed) === */
 .theme-toggle {
   display: flex;
   justify-content: flex-end;
@@ -82,10 +83,53 @@ body {
   height: var(--h);
   border-radius: var(--h);
   background: #e9e6f7;
-  box-shadow: var(--shadow-press);
+  box-shadow: inset 0 -1px 0 rgba(0,0,0,.12);
   cursor: pointer;
-  transition: background .25s ease;
+  transition: background 0.25s ease;
 }
+
+/* Icons inside track */
+.switch::before,
+.switch::after {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  line-height: 1;
+  opacity: 0; /* hidden by default */
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+.switch::before { content: "☀️"; left: 6px; } /* Sun */
+.switch::after  { content: "🌙"; right: 6px; } /* Moon */
+
+/* Knob */
+.switch > i {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,.25);
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+/* Default (light mode): show moon only */
+.switch::after { opacity: 1; }
+
+/* Checked (dark mode): show sun only */
+input[type="checkbox"]:checked + .switch {
+  background: var(--brand-100);
+}
+input[type="checkbox"]:checked + .switch > i {
+  transform: translateX(calc(var(--w) - var(--h) + 2px));
+}
+input[type="checkbox"]:checked + .switch::before { opacity: 1; }
+input[type="checkbox"]:checked + .switch::after  { opacity: 0; }
+
 
 /* Track icons (sun left, moon right) */
 .switch::before,
