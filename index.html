@@ -1,29 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Stopwatch</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
+    <!-- theme toggle -->
+    <div class="theme-toggle">
+      <input type="checkbox" id="themeSwitch" />
+      <label for="themeSwitch" class="switch" title="Toggle dark mode"></label>
+    </div>
+
     <h1>Stopwatch</h1>
+
     <div class="display" id="display">00:00:00</div>
+
     <div class="buttons">
       <button id="startStopBtn">Start</button>
       <button id="lapBtn" disabled>Lap</button>
       <button id="resetBtn" disabled>Reset</button>
     </div>
+
     <ul id="laps"></ul>
   </div>
 
-  <script src="script.js"></script>
-
-    <footer class="social-footer">
+  <!-- sticky footer with links -->
+  <footer class="social-footer">
     <a href="https://github.com/umer-exe" target="_blank" class="social-btn github-btn">GitHub</a>
     <a href="https://linkedin.com/in/umer-malik28" target="_blank" class="social-btn linkedin-btn">LinkedIn</a>
   </footer>
 
+  <script src="script.js"></script>
 </body>
 </html>

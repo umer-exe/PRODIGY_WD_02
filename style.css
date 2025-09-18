@@ -7,17 +7,17 @@ body {
   align-items: center;
   min-height: 100vh;
   margin: 0;
-  background: linear-gradient(135deg, #c7a4ff, #a77bff); /* light purple gradient */
+  background: #ffffff;                 /* WHITE background in light mode */
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
 }
 
-/* Stopwatch container */
+/* Center card */
 .container {
   background: #fff;
   width: min(92vw, 420px);
   padding: 28px 24px;
   border-radius: 14px;
-  border: 1px solid #efe6ff; /* light purple border */
+  border: 1px solid #efe6ff;
   box-shadow:
     0 18px 30px rgba(138, 43, 226, 0.20),
     0 2px 8px rgba(0, 0, 0, 0.06);
@@ -27,7 +27,7 @@ body {
 h1 {
   margin: 0 0 8px;
   font-size: 28px;
-  color: #1f1140; /* deep ink color */
+  color: #1f1140;
   letter-spacing: .2px;
 }
 
@@ -36,7 +36,7 @@ h1 {
   font-size: 44px;
   font-weight: 700;
   margin: 12px 0 20px;
-  color: #2f1f55; /* darker purple text */
+  color: #2f1f55;
   text-shadow: 0 1px 0 #fff;
 }
 
@@ -53,7 +53,7 @@ h1 {
   border: 0;
   border-radius: 10px;
   cursor: pointer;
-  background: #8a2be2; /* purple theme buttons */
+  background: #8a2be2;  /* unchanged purple buttons */
   color: #fff;
   font-weight: 600;
   box-shadow: 0 2px 0 rgba(31,17,64,.25);
@@ -66,13 +66,11 @@ h1 {
 }
 .buttons button:active { transform: translateY(1px); }
 
-/* subtle divider below buttons */
+/* subtle divider under buttons */
 .buttons::after {
   content: "";
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -10px;
+  left: 0; right: 0; bottom: -10px;
   height: 1px;
   background: #eadcff;
   opacity: .9;
@@ -108,16 +106,12 @@ h1 {
   color: #4b3c7a;
 }
 
-/* Sticky footer with social links */
+/* Sticky footer with social links (unchanged) */
 .social-footer {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
+  bottom: 0; left: 0; width: 100%;
   background: rgba(0, 0, 0, 0.65);
-  display: flex;
-  justify-content: center;
-  gap: 8px;
+  display: flex; justify-content: center; gap: 8px;
   padding: 8px 0;
   backdrop-filter: blur(6px);
   border-top: 1px solid rgba(255,255,255,0.15);
@@ -132,18 +126,58 @@ h1 {
   border: 1px solid rgba(255,255,255,0.2);
   transition: all 0.2s ease-in-out;
 }
+.github-btn { background-color: #8a2be2; color: #fff; }
+.linkedin-btn { background-color: transparent; color: #fff; }
+.social-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
 
-.github-btn {
-  background-color: #8a2be2;
-  color: white;
+/* === Theme Toggle Switch === */
+.theme-toggle {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 8px;
 }
 
-.linkedin-btn {
-  background-color: transparent;
-  color: white;
+.switch {
+  width: 42px; height: 22px;
+  background: #ddd;
+  display: inline-block;
+  border-radius: 22px;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.switch::after {
+  content: "";
+  position: absolute; top: 2px; left: 2px;
+  width: 18px; height: 18px;
+  background: white; border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+input[type="checkbox"] { display: none; }
+input[type="checkbox"]:checked + .switch { background: #8a2be2; }
+input[type="checkbox"]:checked + .switch::after { transform: translateX(20px); }
+
+/* === Dark Mode === */
+body.dark {
+  background: linear-gradient(135deg, #1e1b29, #322f47);  /* dark background only */
 }
 
-.social-btn:hover {
-  transform: translateY(-2px);
-  filter: brightness(1.1);
+body.dark .container {
+  background: #262339;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 18px 30px rgba(0,0,0,0.4);
 }
+
+body.dark h1, 
+body.dark .display {
+  color: #f4f4f4;
+  text-shadow: none;
+}
+
+body.dark #laps { border-top-color: rgba(255,255,255,0.12); }
+body.dark #laps li { border-bottom-color: rgba(255,255,255,0.12); }
+body.dark #laps li .lap-label,
+body.dark #laps li .lap-time { color: #ddd; }
+
+body.dark .buttons button { background: #8a2be2; }  /* keep buttons purple */
+body.dark .social-footer { background: rgba(0,0,0,0.85); }  /* keep footer dark */
