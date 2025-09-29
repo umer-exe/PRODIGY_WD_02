@@ -34,7 +34,7 @@ function renderLaps() {
   laps.innerHTML = "";
 
   if (lapsData.length > 0) {
-    // Determine fastest/slowest by split time (ignore first if split=total)
+    // Determine fastest/slowest by split time
     const splitTimes = lapsData.map(l => l.splitMs);
     const fastest = Math.min(...splitTimes);
     const slowest = Math.max(...splitTimes);
@@ -46,7 +46,7 @@ function renderLaps() {
       label.className = "lap-label";
       label.textContent = `Lap ${i + 1}`;
 
-      // badges
+      // Badge (may be empty but we still render it to reserve space)
       const badge = document.createElement("span");
       if (lap.splitMs === fastest && lapsData.length > 1) {
         badge.className = "badge fastest";
@@ -54,6 +54,8 @@ function renderLaps() {
       } else if (lap.splitMs === slowest && lapsData.length > 1) {
         badge.className = "badge slowest";
         badge.textContent = "SLOWEST";
+      } else {
+        badge.className = "badge"; // empty badge placeholder
       }
 
       const time = document.createElement("span");
@@ -64,10 +66,11 @@ function renderLaps() {
       split.className = "lap-split";
       split.textContent = `+${formatTime(lap.splitMs)}`;
 
-      // layout: [label + badge] [split] [total]
+      // layout: [badge | label] [split] [total]
       const labelWrap = document.createElement("span");
+      labelWrap.className = "label-wrap";
+      labelWrap.appendChild(badge); // always present to keep alignment
       labelWrap.appendChild(label);
-      if (badge.textContent) labelWrap.appendChild(badge);
 
       li.appendChild(labelWrap);
       li.appendChild(split);
@@ -186,7 +189,6 @@ lapBtn.addEventListener("click", recordLap);
 // Keyboard shortcuts: Space=start/pause, L=lap, R=reset
 document.addEventListener("keydown", (e) => {
   const tag = (e.target && e.target.tagName) || "";
-  // avoid triggering while typing in inputs (if you add any later)
   if (["INPUT", "TEXTAREA", "SELECT"].includes(tag)) return;
 
   if (e.code === "Space") {
