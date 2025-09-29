@@ -7,8 +7,10 @@ It supports starting, pausing, resetting, and recording lap times with a modern,
 
 - **Start, Pause & Reset:** Simple and intuitive stopwatch controls.
 - **Lap Recording:** Displays lap number and precise timestamp.
+- **Fastest, Slowest Detection** auto tags the best and worst split.
 - **Responsive Design:** Scales beautifully on desktop and mobile.
-- **Light/Dark Mode Toggle:** Sun/Moon toggle with smooth animation and `localStorage` persistence.
+- **Light/Dark Mode Toggle:** smooth animation and `localStorage` persistence.
+- **Keyboard Shortcuts** Space starts or pauses, L adds a lap, R resets
 - **Modern UI/UX:**  
   - Clean card layout with soft shadows and rounded corners  
   - Consistent button sizes with hover, focus, and active states  
