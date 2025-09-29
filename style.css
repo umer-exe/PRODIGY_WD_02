@@ -99,21 +99,20 @@ body:not(.dark) .container.running { animation: pulseLight 1.4s ease-in-out infi
   box-shadow: inset 0 -1px 0 rgba(0,0,0,.12);
   cursor: pointer;
   transition: background 0.25s ease;
-  color: #6c5b99; /* icon color */
+  color: var(--text-subtle); /* icon color (good contrast both modes) */
 }
-body.dark .switch { color: #c9c6d9; }
 
 /* Icons inside the switch */
 .switch .icon {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 14px;
-  height: 14px;
+  width: 16px;               /* bigger, clearer */
+  height: 16px;
   opacity: 1;
   pointer-events: none;
   fill: currentColor;
-  transition: opacity .25s ease;
+  transition: none;          /* remove fade to avoid first-paint flash */
 }
 .switch .icon.sun  { left: 8px; }
 .switch .icon.moon { right: 8px; }
@@ -129,18 +128,21 @@ body.dark .switch { color: #c9c6d9; }
   transition: transform .25s ease;
 }
 
-/* Checked state */
+/* Checkbox-driven state (for live toggles) */
 input[type="checkbox"]:checked + .switch { background: var(--brand-100); }
 input[type="checkbox"]:checked + .switch > i {
   transform: translateX(calc(var(--w) - var(--h)));
 }
-
-/* Show only the relevant icon per mode */
-input[type="checkbox"] + .switch .icon.sun  { opacity: 1;  }
-input[type="checkbox"] + .switch .icon.moon { opacity: 0;  } /* fully hidden in light */
-
+input[type="checkbox"] + .switch .icon.sun  { opacity: 1; }
+input[type="checkbox"] + .switch .icon.moon { opacity: 0; }
 input[type="checkbox"]:checked + .switch .icon.sun  { opacity: 0; }
 input[type="checkbox"]:checked + .switch .icon.moon { opacity: 1; }
+
+/* Body-level overrides to prevent flicker on first paint */
+body.dark .switch { background: var(--brand-100); }
+body.dark .switch > i { transform: translateX(calc(var(--w) - var(--h))); }
+body.dark .switch .icon.sun  { opacity: 0; }
+body.dark .switch .icon.moon { opacity: 1; }
 
 /* Typography */
 h1 {
