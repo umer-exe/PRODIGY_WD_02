@@ -7,22 +7,22 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
+  <div class="container" id="card">
     <!-- theme toggle -->
     <div class="theme-toggle">
       <input type="checkbox" id="themeSwitch" />
       <label for="themeSwitch" class="switch"><i aria-hidden="true"></i></label>
     </div>
 
-
     <h1>Stopwatch</h1>
 
-    <div class="display" id="display">00:00:00</div>
+    <!-- aria-live so screen readers hear updates -->
+    <div class="display" id="display" aria-live="polite">00:00:00</div>
 
     <div class="buttons">
-      <button id="startStopBtn">Start</button>
-      <button id="lapBtn" disabled>Lap</button>
-      <button id="resetBtn" disabled>Reset</button>
+      <button id="startStopBtn" aria-label="Start or pause stopwatch">Start</button>
+      <button id="lapBtn" disabled aria-label="Record lap">Lap</button>
+      <button id="resetBtn" disabled aria-label="Reset stopwatch and clear laps">Reset</button>
     </div>
 
     <ul id="laps"></ul>
