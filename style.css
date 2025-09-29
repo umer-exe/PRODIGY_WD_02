@@ -12,15 +12,15 @@
   --muted: #6c5b99;
   --divider: #eadcff;
 
-  --brand: #8a2be2;       /* main purple */
-  --brand-600: #7a22d0;   /* hover */
-  --brand-100: #f3ecff;   /* focus ring */
+  --brand: #8a2be2;
+  --brand-600: #7a22d0;
+  --brand-100: #f3ecff;
 
   --shadow-soft: 0 22px 40px rgba(138, 43, 226, 0.14), 0 2px 8px rgba(0,0,0,.05);
   --shadow-press: inset 0 -1px 0 rgba(0,0,0,.12);
 }
 
-/* Dark mode tokens (body.dark toggled by JS) */
+/* Dark mode tokens */
 body.dark {
   --bg: radial-gradient(1100px 600px at 50% -20%, #352e54 0%, #201c31 55%, #151225 100%);
   --surface: rgba(38,35,57,0.75);
@@ -66,7 +66,7 @@ body {
   transition: box-shadow .25s ease, transform .25s ease, background .25s ease;
 }
 
-/* Running effect: stronger pulse in LIGHT mode only */
+/* Running effect */
 .container.running { animation: pulse 1.8s ease-in-out infinite; }
 body:not(.dark) .container.running { animation: pulseLight 1.4s ease-in-out infinite; }
 
@@ -75,14 +75,13 @@ body:not(.dark) .container.running { animation: pulseLight 1.4s ease-in-out infi
   50%  { box-shadow: 0 32px 70px rgba(138,43,226, .25), 0 2px 8px rgba(0,0,0,.10); }
   100% { box-shadow: var(--shadow-soft); }
 }
-/* beefier glow for light mode */
 @keyframes pulseLight {
   0%   { box-shadow: 0 18px 34px rgba(138,43,226,.20), 0 2px 8px rgba(0,0,0,.06); }
   50%  { box-shadow: 0 46px 120px rgba(138,43,226,.38), 0 8px 18px rgba(0,0,0,.12); }
   100% { box-shadow: 0 18px 34px rgba(138,43,226,.20), 0 2px 8px rgba(0,0,0,.06); }
 }
 
-/* Theme toggle (sun / moon) */
+/* Theme toggle */
 .theme-toggle {
   display: flex;
   justify-content: flex-end;
@@ -100,23 +99,48 @@ body:not(.dark) .container.running { animation: pulseLight 1.4s ease-in-out infi
   box-shadow: inset 0 -1px 0 rgba(0,0,0,.12);
   cursor: pointer;
   transition: background 0.25s ease;
+  color: #6c5b99; /* icon color */
 }
-.switch::before, .switch::after {
-  position: absolute; top: 50%; transform: translateY(-50%);
-  font-size: 14px; line-height: 1; opacity: .85; pointer-events: none;
-}
-.switch::before { content: "☀️"; left: 8px; }
-.switch::after  { content: "🌙"; right: 8px; }
+body.dark .switch { color: #c9c6d9; }
 
+/* Icons inside the switch */
+.switch .icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  opacity: 1;
+  pointer-events: none;
+  fill: currentColor;
+  transition: opacity .25s ease;
+}
+.switch .icon.sun  { left: 8px; }
+.switch .icon.moon { right: 8px; }
+
+/* Knob */
 .switch > i {
-  position: absolute; top: 3px; left: 3px;
+  position: absolute;
+  top: 3px; left: 3px;
   width: calc(var(--h) - 6px); height: calc(var(--h) - 6px);
-  border-radius: 50%; background: #fff;
+  border-radius: 50%;
+  background: #fff;
   box-shadow: 0 1px 2px rgba(0,0,0,.25);
   transition: transform .25s ease;
 }
+
+/* Checked state */
 input[type="checkbox"]:checked + .switch { background: var(--brand-100); }
-input[type="checkbox"]:checked + .switch > i { transform: translateX(calc(var(--w) - var(--h))); }
+input[type="checkbox"]:checked + .switch > i {
+  transform: translateX(calc(var(--w) - var(--h)));
+}
+
+/* Show only the relevant icon per mode */
+input[type="checkbox"] + .switch .icon.sun  { opacity: 1;  }
+input[type="checkbox"] + .switch .icon.moon { opacity: 0;  } /* fully hidden in light */
+
+input[type="checkbox"]:checked + .switch .icon.sun  { opacity: 0; }
+input[type="checkbox"]:checked + .switch .icon.moon { opacity: 1; }
 
 /* Typography */
 h1 {
@@ -135,7 +159,6 @@ h1 {
   color: var(--text);
   letter-spacing: 1px;
 }
-/* (Removed digit blink) */
 
 /* Controls */
 .buttons {
@@ -191,7 +214,7 @@ h1 {
 #laps li:hover { background-color: rgba(138,43,226, .06); }
 body.dark #laps li:hover { background-color: rgba(138,43,226, .12); }
 
-/* keeps badges on the left and aligns "Lap X" perfectly */
+/* Left badges, aligned labels */
 .label-wrap {
   display: grid;
   grid-template-columns: 84px auto; /* fixed badge column width */
@@ -209,7 +232,7 @@ body.dark #laps li:hover { background-color: rgba(138,43,226, .12); }
   font-size: 12px;
   font-weight: 800;
   border: 1px solid transparent;
-  margin: 0;                 /* grid handles spacing */
+  margin: 0;
 }
 .badge.fastest { color: #0a7f3f; border-color: rgba(10,127,63,.25); background: rgba(10,127,63,.08); }
 .badge.slowest { color: #b12c2c; border-color: rgba(177,44,44,.25); background: rgba(177,44,44,.08); }
